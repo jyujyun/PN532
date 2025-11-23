@@ -1,4 +1,4 @@
-#　PicoSDK向けPN532制御プログラム<br>
+# PicoSDK向けPN532制御プログラム<br>
 
 このプログラムでPN532をRaspberryPiPicoのi2cによって制御できます。<br>
 現在使える機能は<br>
@@ -7,25 +7,25 @@
 です。<br>
 このプログラムはhttps://github.com/elechouse/PN532を参考に作成されました。<br>
 
-##　関数一覧<br>
-###　void PN532Init()<br>
+## 関数一覧<br>
+### void PN532Init()<br>
 i2cを初期化します。最初に必ず実行する必要があります。<br>
 i2cのピンなどはヘッダファイルで変更可能です。<br>
-###　uint32_t getVersion()<br>
+### uint32_t getVersion()<br>
 PN532のバージョンやチップ情報を返します。返り値は32ビットの整数形式です。<br>
 返り値は**0xAABBCCDD**となっています。チップの型番は**AA**を16進数で見ます。(ほとんどの場合**0x32**)<br>
 バージョンは**BB**.**CC**となっています。バージョン1.6の場合はBB=1 CC=6です。<br>
-###　void setCardWait(uint8_t time)<br>
+### void setCardWait(uint8_t time)<br>
 PN532が一回の命令で何回カードの読み取りを試行するかを設定します。<br>
 **0xFF**で無限回やります。ほとんどの場合はこの設定をお勧めします。<br>
-###　void SAMConfig()<br>
+### void SAMConfig()<br>
 IRQピンの設定などを行います。自分自身これがなぜ必要なのかはわかりませんでした。<br>
 詳しい情報は本家のライブラリで確認してください。<br>
 ###int8_t felicaRead(uint8_t cardID[8])<br>
 FelicaカードのID読み取りを開始します。この関数はカードが認識されるか、5秒経過するまでプログラムが停止します。ご注意ください。<br>
 カードの読み取りに失敗すると-1を返します。カードのIDは1バイトx8の配列で構成されています。配列のポインタをこの関数に渡してください。<br>
 
-##　配線<br>
+## 配線<br>
 初期設定の場合、配線は以下の通りです。<br>
 |RaspberryPiPico|PN532|
 |---|---|
