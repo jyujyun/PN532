@@ -5,7 +5,7 @@
 ・PN532のバージョン確認<br>
 ・FelicaカードのID読み取り<br>
 です。<br>
-このプログラムはhttps://github.com/elechouse/PN532を参考に作成されました。<br>
+このプログラムは https://github.com/elechouse/PN532 を参考に作成されました。<br>
 
 ## 関数一覧<br>
 ### void PN532Init()<br>
