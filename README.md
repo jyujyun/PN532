@@ -37,4 +37,46 @@ FelicaカードのID読み取りを開始します。この関数はカードが
 ディップスイッチの設定をi2cにすることをお忘れなく。
 
 ## 導入方法<br>
-PN532.cppとPN532.hをあなたのプロジェクトにコピーして、MakeFileの**add_executable**にPN532.cppを追加してください。
+PN532.cppとPN532.hをあなたのプロジェクトにコピーして、MakeFileの**add_executable**にPN532.cppを追加してください。<br>
+
+## サンプルプログラム<br>
+このプログラムはPN532のバージョンを取得したあと、felicaカードを読み取ります。<br>
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include "pico/stdlib.h"
+#include "hardware/i2c.h"
+#include <stdint.h>
+#include "PN532.h"
+int main() {
+    stdio_init_all();
+    PN532Init();
+    printf("**PN532 Felica読み取りテスト**\n");
+    uint32_t ver = getVersion();
+    if (ver == 0)
+    {
+        printf("PN532と通信ができませんでした。\n");
+        while (1){}
+    }
+    printf("このチップの型番: PN5%x\n",(ver >> 24) & 0xFF);
+    printf("このチップのバージョン: ver%d.%d\n",(ver >> 16) & 0xFF,(ver >> 8) & 0xFF);
+    sleep_ms(1000);
+    setCardWait(0xFF);
+    SAMConfig();
+    printf("=====\nFelicaカードの読み取りを開始します\n=====\n");
+    while(1){
+        uint8_t cardID[8];
+        if(felicaRead(cardID) != -1)
+        {
+            printf("カードID:");
+            for (int i= 0;i < 8; i ++)
+            {
+                printf("%02x",cardID[i]);
+            }
+            printf("\n");
+        }
+        sleep_ms(1000);
+    }
+}
+
+```
